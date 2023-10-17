@@ -10,7 +10,7 @@ import { useGetCustomerDetailQuery } from "../services/customers";
 const CustomerDetail = () => {
   const { id } = useParams();
   const [isTransfer, setIsTransfer] = useState(false);
-  const { data, error, isLoading } = useGetCustomerDetailQuery(id);
+  const { data, isLoading } = useGetCustomerDetailQuery(id);
 
   const navigate = useNavigate();
 
@@ -33,31 +33,39 @@ const CustomerDetail = () => {
       <Header />
       <MainSection>
         {isLoading ? (
-          <div>Loading...</div>
+          <div
+            className="d-flex justify-content-center align-items-center"
+            style={{ minHeight: "80vh" }}
+          >
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
         ) : (
           <div className="container p-5" style={{ color: "#004880" }}>
             <dl className="row">
               <dt className="col-sm-3">Name</dt>
-              <dd className="col-sm-9">{data.user[0].name}</dd>
+              <dd className="col-sm-9">{data?.user[0].name}</dd>
               <dt className="col-sm-3">Email</dt>
-              <dd className="col-sm-9">{data.user[0].email}</dd>
+              <dd className="col-sm-9">{data?.user[0].email}</dd>
               <dt className="col-sm-3">Mobile Number</dt>
-              <dd className="col-sm-9">+91 {data.user[0].mobile}</dd>
+              <dd className="col-sm-9">+91 {data?.user[0].mobile}</dd>
               <dt className="col-sm-3">Current A/C Balance</dt>
               <dd className="col-sm-9">
-                {format.format(data.user[0].balance)}
+                {format.format(data?.user[0].balance)}
               </dd>
             </dl>
             <div className="d-flex justify-content-center mt-5">
-              <StyledButton className="btn btn-sm" onClick={handleBackButton}>
-                Back
-              </StyledButton>
-              <StyledButton
-                className="btn btn-sm"
-                onClick={handleTransferMoneyBtn}
+              <button
+                className="primary-btn"
+                onClick={handleBackButton}
+                style={{ marginRight: "1rem" }}
               >
+                Back
+              </button>
+              <button className="primary-btn" onClick={handleTransferMoneyBtn}>
                 Transfer Money
-              </StyledButton>
+              </button>
             </div>
           </div>
         )}

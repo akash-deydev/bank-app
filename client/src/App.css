@@ -1,0 +1,39 @@
+.primary-btn {
+    border: none;
+  outline: none;
+  background-color: #004880;
+  color: white;
+  width: auto;
+  padding: 4px 10px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.navbar-collapse ul {
+  display: flex;
+  gap: 35px;
+}
+
+.nav-item {
+  padding: .5rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.nav-item a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-item:hover{
+  background-color: #e3f2ff;
+  padding: 0.5rem;
+}

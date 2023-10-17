@@ -18,42 +18,45 @@ const Customers = () => {
     <div>
       <Header />
       <MainSection>
-        <StyledTable className="container table table-sm table-hover table-striped mt-2">
-          <thead className="table-light">
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>View Details</th>
-            </tr>
-          </thead>
-          {isLoading ? (
-            <tbody>
+        {isLoading ? (
+          <div
+            className="d-flex justify-content-center align-items-center"
+            style={{ minHeight: "80vh" }}
+          >
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : (
+          <StyledTable className="container table table-sm table-hover table-striped mt-2">
+            <thead className="table-light">
               <tr>
-                <td>Loading...</td>
+                <th>#</th>
+                <th>Name</th>
+                <th>View Details</th>
               </tr>
-            </tbody>
-          ) : (
+            </thead>
             <tbody>
-              {data.users &&
-                data.users.map((user, idx) => {
+              {data?.users &&
+                data?.users.map((user, idx) => {
                   return (
                     <tr key={user._id}>
                       <td>{idx + 1}.</td>
                       <td>{user.name}</td>
                       <td>
-                        <StyledButton
-                          className="btn btn-sm"
+                        <button
+                          className="primary-btn"
                           onClick={() => handleClick(user._id)}
                         >
                           View
-                        </StyledButton>
+                        </button>
                       </td>
                     </tr>
                   );
                 })}
             </tbody>
-          )}
-        </StyledTable>
+          </StyledTable>
+        )}
       </MainSection>
       <Footer />
     </div>

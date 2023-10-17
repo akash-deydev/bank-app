@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { HiHome } from "react-icons/hi";
 import { BiSolidUser } from "react-icons/bi";
@@ -10,112 +9,74 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <StyledContainer>
-      <div id="bank-logo">
-        <NavLink to="/">
-          <div>GRIP</div>
-          <div id="bank">Bank</div>
-        </NavLink>
-      </div>
-
-      <div id="bank-links">
-        <div className="icons-links nav-items">
-          <HiHome />
-          <NavLink to="/">Home</NavLink>
-        </div>
-        <div className="icons-links nav-items">
-          <BiSolidUser />
-          <NavLink href="/">Personal</NavLink>
-        </div>
-        <div className="icons-links nav-items">
-          <MdOutlineBusiness />
-          <NavLink href="/">Business</NavLink>
-        </div>
-        <div className="icons-links">
-          <BiSolidPlane />
-          <NavLink href="/">NRI</NavLink>
-        </div>
-      </div>
-      <div id="bank-btn">
-        <StyledButton
-          className="btn btn-sm"
-          onClick={(e) => navigate("/login")}
+    <nav
+      className="navbar navbar-expand-lg bg-body-tertiary"
+      style={{ minHeight: "10vh", boxShadow: "3px 4px 3px grey" }}
+    >
+      <div className="container-fluid">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo03"
+          aria-controls="navbarTogglerDemo03"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-          Login
-        </StyledButton>
-        <StyledButton className="btn btn-sm">Pay</StyledButton>
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <NavLink
+          className="navbar-brand ms-3"
+          style={{ color: "#004880", fontWeight: "bold" }}
+          to="/"
+        >
+          GRIP <div>Bank</div>
+        </NavLink>
+        <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul className="navbar-nav m-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <NavLink
+                className="nav-link"
+                aria-current="page"
+                to="/"
+                style={{ color: "#004880" }}
+              >
+                <HiHome />
+                <div>Home</div>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/" style={{ color: "#004880" }}>
+                <BiSolidUser />
+                <div>Personal</div>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/" style={{ color: "#004880" }}>
+                <MdOutlineBusiness />
+                <div>Business</div>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/" style={{ color: "#004880" }}>
+                <BiSolidPlane />
+                <div>NRI</div>
+              </NavLink>
+            </li>
+          </ul>
+          <div>
+            <button
+              className="primary-btn me-3"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+            <button className="primary-btn me-3">Pay</button>
+          </div>
+        </div>
       </div>
-    </StyledContainer>
+    </nav>
   );
 };
 
 export default Header;
-
-const StyledContainer = styled.div`
-  display: flex;
-  max-height: 10vh;
-  justify-content: space-around;
-  align-items: center;
-  color: #004880;
-  font-weight: bold;
-  box-shadow: 6px 5px 6px #0000001f;
-
-  #bank-logo {
-    font-size: 20px;
-
-    a {
-      text-decoration: none;
-      color: #004880;
-    }
-
-    #bank {
-      font-size: 18px;
-      font-weight: normal;
-    }
-  }
-
-  #bank-links {
-    display: flex;
-    gap: 25px;
-
-    .icons-links {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-      padding: 10px;
-
-      &:hover {
-        background-color: #e3f2ff;
-        padding: 10px;
-      }
-    }
-
-    svg {
-      display: block;
-    }
-
-    div a {
-      text-decoration: none;
-      color: #004880;
-    }
-  }
-`;
-
-const StyledButton = styled.button`
-  width: 60px;
-  border: none;
-  outline: none;
-  background-color: #004880;
-  color: #eee;
-  padding: 6px 10px;
-  font-weight: bold;
-  border-radius: 4px;
-  margin-right: 10px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #007bff;
-    color: white;
-  }
-`;

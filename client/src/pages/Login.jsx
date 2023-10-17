@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Header from "../components/Layout/Header";
 import MainSection from "../components/Layout/MainSection";
 import { Link } from "react-router-dom";
+import Footer from "../components/Layout/Footer";
 
 const Login = () => {
   return (
@@ -26,6 +27,7 @@ const Login = () => {
           </FormText>
         </StyledForm>
       </MainSection>
+      <Footer />
     </div>
   );
 };

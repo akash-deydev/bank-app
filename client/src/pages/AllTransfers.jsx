@@ -4,7 +4,7 @@ import MainSection from "../components/Layout/MainSection";
 import { useGetAllTransactionsQuery } from "../services/customers";
 
 const AllTransfers = () => {
-  const { data, error, isLoading } = useGetAllTransactionsQuery();
+  const { data, isLoading } = useGetAllTransactionsQuery();
 
   var format = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -16,27 +16,29 @@ const AllTransfers = () => {
     <div>
       <Header />
       <MainSection>
-        <table className="container table table-sm table-hover table-striped mt-2">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Sender</th>
-              <th>Receiver</th>
-              <th>Amount</th>
-              <th>Date & Time</th>
-            </tr>
-          </thead>
-
-          {isLoading ? (
-            <tbody>
+        {isLoading ? (
+          <div
+            className="d-flex justify-content-center align-items-center"
+            style={{ minHeight: "80vh" }}
+          >
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : (
+          <table className="container table table-sm table-hover table-responsive-sm table-striped align-middle mt-2">
+            <thead>
               <tr>
-                <td>Loading...</td>
+                <th>#</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Amount</th>
+                <th>Date & Time</th>
               </tr>
-            </tbody>
-          ) : (
+            </thead>
             <tbody>
-              {data.transactions &&
-                data.transactions.map((transaction, idx) => {
+              {data?.transactions &&
+                data?.transactions.map((transaction, idx) => {
                   return (
                     <tr key={transaction._id}>
                       <td>{idx + 1}</td>
@@ -50,8 +52,8 @@ const AllTransfers = () => {
                   );
                 })}
             </tbody>
-          )}
-        </table>
+          </table>
+        )}
       </MainSection>
       <Footer />
     </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useGetAllCustomersQuery } from "../services/customers";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useHandleFundTransferMutation } from "../services/customers";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -11,13 +11,10 @@ const initialAmount = "";
 const Transfer = ({ setIsTransfer, user }) => {
   const [value, setValue] = useState(initialValue);
   const [amount, setAmount] = useState(initialAmount);
-  const [error, setError] = useState("");
   const { data, isLoading } = useGetAllCustomersQuery();
   const { id } = useParams();
 
-  const [fundTransfer, responseInfo] = useHandleFundTransferMutation();
-
-  const navigate = useNavigate();
+  const [fundTransfer] = useHandleFundTransferMutation();
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -38,8 +35,9 @@ const Transfer = ({ setIsTransfer, user }) => {
   const handlePaymentBtn = async (e) => {
     e.preventDefault();
 
-    if (value === "") {
-      toast.error("Choose one customers account to transfer money.");
+    if (value === initialValue) {
+      toast.error("Choose a customers account to transfer money.");
+      return;
     }
 
     if (Number(amount) == "") {
@@ -74,62 +72,64 @@ const Transfer = ({ setIsTransfer, user }) => {
   };
 
   return (
-    <StyledContainer className="container d-flex flex-column align-items-center">
+    <div className="container text-center">
       <Toaster />
-      <select
-        value={value}
-        onChange={handleChange}
-        className="form-select form-select-sm"
-      >
-        <option>Select a customer to transfer money</option>
-        {isLoading ? (
-          <option>Loading...</option>
-        ) : (
-          data.users &&
-          data.users.map((u) => {
-            return (
-              <option key={u._id} value={u._id}>
-                {u.name}
-              </option>
-            );
-          })
-        )}
-      </select>
-      <form>
-        <input
-          type="text"
-          className="form-control form-control-sm mt-3"
-          placeholder="Enter the Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-        <div className="m-auto">
-          <button
-            className="btn btn-sm btn-success mt-3 me-2"
-            onClick={handlePaymentBtn}
+      <div className="row">
+        <div className="col">
+          <select
+            value={value}
+            onChange={handleChange}
+            className="form-select form-select-sm"
           >
-            Make Payment
-          </button>
-          <button
-            className="btn btn-sm btn-primary mt-3 me-2"
-            onClick={handleResetBtn}
-          >
-            Reset
-          </button>
-          <button
-            className="btn btn-sm btn-danger mt-3"
-            onClick={handleCancelBtn}
-          >
-            Cancel
-          </button>
+            <option>Select a customer to transfer money</option>
+            {isLoading ? (
+              <option>Loading...</option>
+            ) : (
+              data?.users &&
+              data?.users.map((u) => {
+                return (
+                  <option key={u._id} value={u._id}>
+                    {u.name}
+                  </option>
+                );
+              })
+            )}
+          </select>
         </div>
-      </form>
-    </StyledContainer>
+        <div className="col">
+          <input
+            type="text"
+            className="form-control form-control-sm"
+            placeholder="Enter the Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <button
+          className="btn btn-sm btn-success mt-3 me-2"
+          onClick={handlePaymentBtn}
+        >
+          Make Payment
+        </button>
+
+        <button
+          className="btn btn-sm btn-primary mt-3 me-2"
+          onClick={handleResetBtn}
+        >
+          Reset
+        </button>
+
+        <button
+          className="btn btn-sm btn-danger mt-3"
+          onClick={handleCancelBtn}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
   );
 };
 
 export default Transfer;
-
-const StyledContainer = styled.div`
-  width: 24vw;
-`;
