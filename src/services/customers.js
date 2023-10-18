@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const customersApi = createApi({
   reducerPath: "customersApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://65.0.61.231:8080/api/v1/bank/",
+    baseUrl: "https://bank.akash.dey-dev.work.gd/api/v1/bank/",
   }),
   endpoints: (builder) => ({
     getAllCustomers: builder.query({
